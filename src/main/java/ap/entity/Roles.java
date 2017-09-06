@@ -11,8 +11,8 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "id_account", nullable = false)
-    private int accountId;
+    @Column(name = "login_account", nullable = false)
+    private String loginAccount;
 
     @Column(name = "role_name", nullable = false)
     private  String roleName;
@@ -28,12 +28,12 @@ public class Roles {
         this.id = id;
     }
 
-    public int getAccountId() {
-        return accountId;
+    public String getLoginAccount() {
+        return loginAccount;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
+    public void setLoginAccount(String loginAccount) {
+        this.loginAccount = loginAccount;
     }
 
     public String getRoleName() {

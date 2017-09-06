@@ -1,6 +1,7 @@
 package ap.config;
 
 
+import ap.entity.CustomAccountServiceDetailsExtJdbcDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +21,7 @@ public class AppContext {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        JdbcDaoImpl jdbcImpl = new JdbcDaoImpl();
+        CustomAccountServiceDetailsExtJdbcDaoImpl jdbcImpl = new CustomAccountServiceDetailsExtJdbcDaoImpl();
         jdbcImpl.setDataSource(hibernateConfig.dataSource());
         jdbcImpl.setUsersByUsernameQuery(environment.getRequiredProperty("usersByQuery"));
         jdbcImpl.setAuthoritiesByUsernameQuery(environment.getRequiredProperty("rolesByQuery"));
