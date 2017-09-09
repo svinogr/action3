@@ -24,9 +24,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class Test {
-
+/*
     @Autowired
-    SessionFactory sessionFactory;
+    SessionFactory sessionFactory;*/
 
     @Autowired
     AccountService accountService;
@@ -50,17 +50,6 @@ public class Test {
         return "index";
     }
 
-    @RequestMapping(value = "/loginstatus", method = RequestMethod.GET)
-    public void getStatus(HttpServletRequest request, HttpServletResponse response) {
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
-            UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-            System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-            response.setStatus(200);
-        } else {
-            response.setStatus(401);
-        }
-    }
 
     @RequestMapping(value = "/company/conf", method = RequestMethod.GET)
     public String getConf(HttpServletRequest request, HttpServletResponse response) {

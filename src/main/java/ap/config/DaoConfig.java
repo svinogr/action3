@@ -1,7 +1,9 @@
 package ap.config;
 
+import ap.dao.ArtistProfileDao;
 import ap.dao.BasicDao;
 import ap.dao.RolesDao;
+import ap.dao.daoImpl.ArtistProfileDaoImpl;
 import ap.dao.daoImpl.BasicDaoImpl;
 import ap.dao.daoImpl.RolesDaoImpl;
 import org.springframework.context.annotation.Bean;
@@ -19,4 +21,10 @@ public class DaoConfig {
     RolesDao rolesDao() {
         return new RolesDaoImpl();
     }
+
+    @Bean
+    ArtistProfileDao artistProfileDao() {
+        return new ArtistProfileDaoImpl();
+    }
+
 }

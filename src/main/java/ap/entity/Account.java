@@ -17,6 +17,9 @@ public class Account {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "mail")
+    private String mail;
+
     @Column(name = "active")
     private boolean active;
 
@@ -47,6 +50,14 @@ public class Account {
         this.password = password;
     }
 
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
     public boolean isActive() {
         return active;
     }
@@ -61,6 +72,7 @@ public class Account {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", mail='" + mail + '\'' +
                 ", active=" + active +
                 '}';
     }

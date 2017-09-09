@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BasicDaoImpl<T> implements BasicDao<T> {
     @Autowired
     SessionFactory sessionFactory;
+
     private Class<T> type;
 
     public BasicDaoImpl(Class<T> type) {
