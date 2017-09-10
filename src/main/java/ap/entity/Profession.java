@@ -1,5 +1,5 @@
 package ap.entity;
 
 public enum Profession {
-    ACTOR
+    ACTOR, DIRECTOR
 }

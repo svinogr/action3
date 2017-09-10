@@ -2,6 +2,7 @@ package ap.service.serviceImpl;
 
 import ap.config.WebConfig;
 import ap.entity.ArtistProfile;
+import ap.entity.Profession;
 import ap.service.AccountService;
 import ap.service.ArtistService;
 import org.junit.Before;
@@ -40,5 +41,48 @@ public class ArtistServiceImplTest {
         artistService.createEntity(artistProfile);
         assertNotEquals(0, artistProfile.getId());
     }
+
+    @Test
+    @Transactional
+    public void deleteEntity() throws Exception {
+        boolean flag = artistService.delete(artistProfile);
+        assertEquals(true, flag);
+    }
+
+    @Test
+    @Transactional
+    public void updateEntity() throws Exception {
+        String oldName = artistProfile.getName();
+        int oldAge = artistProfile.getAge();
+        String oldPatronymic = artistProfile.getPatronymic();
+        String oldSubname = artistProfile.getSubname();
+        String oldProfession = artistProfile.getProfession();
+
+        Profession profession = Profession.DIRECTOR;
+
+        artistProfile.setName("newTest");
+        artistProfile.setAge(31);
+        artistProfile.setSubname("newTestov");
+        artistProfile.setPatronymic("newTestovich");
+        artistProfile.setProfession(profession.name());
+        artistProfile = artistService.update(artistProfile);
+
+        assertNotEquals(oldName, artistProfile.getName());
+        assertNotEquals(oldAge, artistProfile.getAge());
+        assertNotEquals(oldSubname, artistProfile.getSubname());
+        assertNotEquals(oldPatronymic, artistProfile.getPatronymic());
+        assertNotEquals(oldProfession, artistProfile.getProfession());
+    }
+
+    @Test
+    @Transactional
+    public void getEntity() throws Exception {
+        createEntity();
+        ArtistProfile newArtistProfile = artistService.getEntity(artistProfile.getId());
+        assertEquals(artistProfile.getId(), newArtistProfile.getId());
+    }
+
+
+
 
 }

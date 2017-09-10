@@ -20,4 +20,17 @@ public class BasicServiceImpl<T> implements BasicService<T> {
         dao.save(object);
         return object;
     }
+
+    public boolean delete(T object) {
+        return dao.delete(object);
+    }
+
+    public T update(T object) {
+        return dao.update(object);
+
+    }
+
+    public T getEntity(int id) {
+        return dao.getById(id);
+    }
 }

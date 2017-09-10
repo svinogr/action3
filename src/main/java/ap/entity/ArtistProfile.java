@@ -25,6 +25,8 @@ public class ArtistProfile {
     @Column(name = "age")
     private int age;
     // список ролей в фильмах
+    @Column(name = "account_id")
+    private int accountId;
 
     @Transient
     private List<Photo> photoList;
@@ -70,6 +72,22 @@ public class ArtistProfile {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
     public List<Photo> getPhotoList() {
