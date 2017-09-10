@@ -26,17 +26,33 @@ public class ArtistSearchServiceImpl implements ArtistSearchService {
         if (artistProfileFrom == null) {
             return null;
         }
+        System.err.println(artistProfileFrom);
+        System.err.println(artistProfileTo);
 
         Session currentSession = sessionFactory.getCurrentSession();
         Criteria criteria = currentSession.createCriteria(ArtistProfile.class);
 
         if (artistProfileTo != null) {
-            criteria.add(Restrictions.between("age", artistProfileFrom.getAge(), artistProfileTo.getAge()));
+            criteria.add(Restrictions.
+                    between("age",
+                            artistProfileFrom.getAge(),
+                            artistProfileTo.getAge()));
         }
-        if (!artistProfileFrom.getName().equals("")) {
+        if (artistProfileFrom.getName() != null) {
             criteria.add(Restrictions.eq("name", artistProfileFrom.getName()));
         }
-
+        if (artistProfileFrom.getPatronymic() != null) {
+            criteria.add(Restrictions.eq("patronymic", artistProfileFrom.getPatronymic()));
+        }
+        if (artistProfileFrom.getSubname() != null) {
+            criteria.add(Restrictions.eq("subname", artistProfileFrom.getSubname()));
+        }
+        if (artistProfileFrom.getProfession() != null) {
+            criteria.add(Restrictions.eq("profession", artistProfileFrom.getProfession()));
+        }
+        if (artistProfileFrom.getAge() > 0 && artistProfileTo == null) {
+            criteria.add(Restrictions.eq("age", artistProfileFrom.getAge()));
+        }
 
         List<ArtistProfile> artistProfiles = criteria.list();
 

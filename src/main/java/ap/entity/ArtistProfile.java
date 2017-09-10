@@ -11,7 +11,7 @@ public class ArtistProfile {
     private int id;
 
     @Column(name = "profession")
-    private String profession = Profession.ACTOR.name();
+    private String profession;
 
     @Column(name = "name")
     private String name;
