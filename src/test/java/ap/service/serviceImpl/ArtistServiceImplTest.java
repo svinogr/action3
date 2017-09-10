@@ -3,19 +3,18 @@ package ap.service.serviceImpl;
 import ap.config.WebConfig;
 import ap.entity.ArtistProfile;
 import ap.entity.Profession;
-import ap.service.AccountService;
 import ap.service.ArtistService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {WebConfig.class})
@@ -24,6 +23,7 @@ public class ArtistServiceImplTest {
 
     @Autowired
     ArtistService artistService;
+
     private ArtistProfile artistProfile;
 
     @Before
@@ -52,6 +52,7 @@ public class ArtistServiceImplTest {
     @Test
     @Transactional
     public void updateEntity() throws Exception {
+        createEntity();
         String oldName = artistProfile.getName();
         int oldAge = artistProfile.getAge();
         String oldPatronymic = artistProfile.getPatronymic();
@@ -68,6 +69,7 @@ public class ArtistServiceImplTest {
         artistProfile = artistService.update(artistProfile);
 
         assertNotEquals(oldName, artistProfile.getName());
+        System.out.println(oldName + " " + artistProfile.getName());
         assertNotEquals(oldAge, artistProfile.getAge());
         assertNotEquals(oldSubname, artistProfile.getSubname());
         assertNotEquals(oldPatronymic, artistProfile.getPatronymic());

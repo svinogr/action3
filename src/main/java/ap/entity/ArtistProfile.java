@@ -97,4 +97,18 @@ public class ArtistProfile {
     public void setPhotoList(List<Photo> photoList) {
         this.photoList = photoList;
     }
+
+    @Override
+    public String toString() {
+        return "ArtistProfile{" +
+                "id=" + id +
+                ", profession='" + profession + '\'' +
+                ", name='" + name + '\'' +
+                ", subname='" + subname + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", age=" + age +
+                ", accountId=" + accountId +
+                ", photoList=" + photoList +
+                '}';
+    }
 }
