@@ -212,7 +212,6 @@ public class ArtistSearchServiceImplTest {
         for (ArtistProfile a : search
                 ) {
             System.out.println(a.toString());
-
         }
         assertEquals(3, search.size());
 
@@ -226,8 +225,5 @@ public class ArtistSearchServiceImplTest {
         int countSearch = artistSearchService.getCountSearch(artistProfileFrom, null);
         System.out.println(countSearch);
         assertEquals(2, countSearch);
-
     }
-
-
 }
