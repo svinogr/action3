@@ -79,7 +79,7 @@ public class ArtistSearchServiceImplTest {
     @Transactional
     public void search() throws Exception {
 
-        List<ArtistProfile> search = artistSearchService.search(artistProfileFrom, artistProfileTo);
+        List<ArtistProfile> search = artistSearchService.search(artistProfileFrom, artistProfileTo, 0);
         for (ArtistProfile a : search
                 ) {
             System.out.println(a.toString());
@@ -98,7 +98,7 @@ public class ArtistSearchServiceImplTest {
         ArtistProfile artistProfileTwo = new ArtistProfile();
         artistProfileTwo.setAge(300);
 
-        List<ArtistProfile> search = artistSearchService.search(artistProfileOne, artistProfileTwo);
+        List<ArtistProfile> search = artistSearchService.search(artistProfileOne, artistProfileTwo, 0);
         for (ArtistProfile a : search
                 ) {
             System.out.println(a.toString());
@@ -113,7 +113,7 @@ public class ArtistSearchServiceImplTest {
     public void searchByProperty() {
         artistProfile = new ArtistProfile();
         artistProfile.setName("test2");
-        List<ArtistProfile> search = artistSearchService.search(artistProfile, null);
+        List<ArtistProfile> search = artistSearchService.search(artistProfile, null, 0);
         for (ArtistProfile a : search
                 ) {
             System.out.println(a.toString());
@@ -129,7 +129,7 @@ public class ArtistSearchServiceImplTest {
         artistProfile = new ArtistProfile();
         //artistProfile.setName("test3");
         artistProfile.setAge(100);
-        List<ArtistProfile> search = artistSearchService.search(artistProfile, null);
+        List<ArtistProfile> search = artistSearchService.search(artistProfile, null, 0);
         for (ArtistProfile a : search
                 ) {
             System.out.println(a.toString());
@@ -144,7 +144,7 @@ public class ArtistSearchServiceImplTest {
     public void searchByPropertyThree() {
         artistProfile = new ArtistProfile();
         artistProfile.setPatronymic("testovich3");
-        List<ArtistProfile> search = artistSearchService.search(artistProfile, null);
+        List<ArtistProfile> search = artistSearchService.search(artistProfile, null, 0);
         for (ArtistProfile a : search
                 ) {
             System.out.println(a.toString());
@@ -159,7 +159,7 @@ public class ArtistSearchServiceImplTest {
     public void searchByPropertyFour() {
         artistProfile = new ArtistProfile();
         artistProfile.setSubname("testov");
-        List<ArtistProfile> search = artistSearchService.search(artistProfile, null);
+        List<ArtistProfile> search = artistSearchService.search(artistProfile, null, 0);
         for (ArtistProfile a : search
                 ) {
             System.out.println(a.toString());
@@ -174,7 +174,7 @@ public class ArtistSearchServiceImplTest {
     public void searchByPropertyFive() {
         artistProfile = new ArtistProfile();
         artistProfile.setProfession(professionTest.name());
-        List<ArtistProfile> search = artistSearchService.search(artistProfile, null);
+        List<ArtistProfile> search = artistSearchService.search(artistProfile, null, 0);
         for (ArtistProfile a : search
                 ) {
             System.out.println(a.toString());
@@ -191,7 +191,7 @@ public class ArtistSearchServiceImplTest {
         artistProfile.setName("test");
         artistProfile.setAge(150);
 
-        List<ArtistProfile> search = artistSearchService.search(artistProfile, artistProfileTo);
+        List<ArtistProfile> search = artistSearchService.search(artistProfile, artistProfileTo, 0);
         for (ArtistProfile a : search
                 ) {
             System.out.println(a.toString());
@@ -208,13 +208,24 @@ public class ArtistSearchServiceImplTest {
         artistProfile.setName(null);
         artistProfile.setAge(0);
 
-        List<ArtistProfile> search = artistSearchService.search(artistProfile, null);
+        List<ArtistProfile> search = artistSearchService.search(artistProfile, null, 0);
         for (ArtistProfile a : search
                 ) {
             System.out.println(a.toString());
 
         }
         assertEquals(3, search.size());
+
+    }
+
+    @Test
+    @Transactional
+    public void getCountSearch() {
+        artistProfileFrom = new ArtistProfile();
+        artistProfileFrom.setAccountId(2);
+        int countSearch = artistSearchService.getCountSearch(artistProfileFrom, null);
+        System.out.println(countSearch);
+        assertEquals(2, countSearch);
 
     }
 

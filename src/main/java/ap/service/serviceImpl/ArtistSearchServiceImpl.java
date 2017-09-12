@@ -3,9 +3,9 @@ package ap.service.serviceImpl;
 import ap.entity.ArtistProfile;
 import ap.service.ArtistSearchService;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +15,34 @@ import java.util.List;
 
 public class ArtistSearchServiceImpl implements ArtistSearchService {
 
-    //  private final static String SELECT = "from  ap.entity.ArtistProfile  as artist where name =:name" ;
+    private static final int MAX_SEARCH_RESULT = 20;
 
     @Autowired
     SessionFactory sessionFactory;
 
     @Transactional
-    public List<ArtistProfile> search(ArtistProfile artistProfileFrom, ArtistProfile artistProfileTo) {
+    public List<ArtistProfile> search(ArtistProfile artistProfileFrom, ArtistProfile artistProfileTo, int start) {
+
+        Criteria criteria = createCriteriaSearch(artistProfileFrom, artistProfileTo);
+        List<ArtistProfile> artistProfiles = null;
+        if (criteria != null) {
+            criteria.setMaxResults(MAX_SEARCH_RESULT);
+            criteria.setFirstResult(start);
+            artistProfiles = criteria.list();
+        }
+        return artistProfiles;
+    }
+
+    @Transactional
+    public int getCountSearch(ArtistProfile artistProfileFrom, ArtistProfile artistProfileTo) {
+        Criteria criteria = createCriteriaSearch(artistProfileFrom, artistProfileTo);
+        if (criteria != null) {
+            return Integer.parseInt(criteria.setProjection(Projections.rowCount()).uniqueResult().toString());
+        }
+        return 0;
+    }
+
+    private Criteria createCriteriaSearch(ArtistProfile artistProfileFrom, ArtistProfile artistProfileTo) {
 
         if (artistProfileFrom == null) {
             return null;
@@ -53,9 +74,13 @@ public class ArtistSearchServiceImpl implements ArtistSearchService {
         if (artistProfileFrom.getAge() > 0 && artistProfileTo == null) {
             criteria.add(Restrictions.eq("age", artistProfileFrom.getAge()));
         }
+        if (artistProfileFrom.getAccountId() > 0) {
+            criteria.add(Restrictions.eq("accountId", artistProfileFrom.getAccountId()));
+        }
 
-        List<ArtistProfile> artistProfiles = criteria.list();
 
-        return artistProfiles;
+        return criteria;
+
     }
+
 }
