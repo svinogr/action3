@@ -19,7 +19,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/WEB-INF/view/");
+        viewResolver.setPrefix("/view/");
         viewResolver.setSuffix(".jsp");
         viewResolver.setContentType("text/html; charset=utf-8");
         return viewResolver;
@@ -27,11 +27,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/view/css/");
-        registry.addResourceHandler("/jpg/**").addResourceLocations("/WEB-INF/view/images/");
-        registry.addResourceHandler("/bootstrap/**").addResourceLocations("/WEB-INF/view/content/");
-        registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/view/js/");
-        registry.addResourceHandler("/font/**").addResourceLocations("/WEB-INF/view/font/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/view/css/");
+        registry.addResourceHandler("/jpg/**").addResourceLocations("/view/images/");
+        registry.addResourceHandler("/bootstrap/**").addResourceLocations("view/content/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/view/js/");
+        registry.addResourceHandler("/font/**").addResourceLocations("/view/font/");
     }
 
 

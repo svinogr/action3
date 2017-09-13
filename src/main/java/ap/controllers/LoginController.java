@@ -1,7 +1,8 @@
 package ap.controllers;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import ap.entity.Role;
+import ap.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,21 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping(value = "auth")
+@RequestMapping(value = "api/auth")
 public class LoginController {
 
-    @RequestMapping(value = "/loginstatus", method = RequestMethod.GET)
-    public void getStatus(HttpServletRequest request, HttpServletResponse response) {
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
-            UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    @Autowired
+    AccountService accountService;
 
-            System.out.println(SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
-            System.out.println(1);
+    @RequestMapping(value = "/loginstatus", method = RequestMethod.GET)
+    public Role getStatus(HttpServletRequest request, HttpServletResponse response) {
+        Role role = accountService.getRole();
+
+        if (role != null) {
             response.setStatus(200);
+            return role;
         } else {
             response.setStatus(401);
-            System.out.println(SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
-            System.out.println(2);
+            return null;
         }
     }
+
 }

@@ -42,7 +42,7 @@ public class Test {
         Object uniqueResult = criteria.setProjection(Projections.rowCount()).uniqueResult();
         System.out.println(uniqueResult);
         Account account = new Account();
-        account.setName("ddd");
+        account.setLogin("ddd");
         account.setPassword("ddd");
         accountService.create(account);*/
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());

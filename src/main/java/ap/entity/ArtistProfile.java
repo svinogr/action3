@@ -28,6 +28,9 @@ public class ArtistProfile {
     @Column(name = "account_id")
     private int accountId;
 
+    @Column(name = "city")
+    private String city;
+
     @Transient
     private List<Photo> photoList;
 
@@ -96,6 +99,14 @@ public class ArtistProfile {
 
     public void setPhotoList(List<Photo> photoList) {
         this.photoList = photoList;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override

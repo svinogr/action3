@@ -22,12 +22,12 @@ public class AccountDaoImpl extends BasicDaoImpl<Account> implements AccountDao 
     }
 
     @Transactional
-    public Account getByName(String name) {
+    public Account getByLogin(String login) {
         Account account = null;
         try {
             Session session = sessionFactory.getCurrentSession();
             Criteria criteria = session.createCriteria(Account.class);
-            criteria.add(Restrictions.eq("name", name));
+            criteria.add(Restrictions.eq("login", login));
             account = (Account) criteria.uniqueResult();
         } catch (HibernateException e) {
             e.printStackTrace();

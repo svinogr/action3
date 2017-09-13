@@ -29,7 +29,7 @@ public class AccountDaoImplTest {
     public void setUp() throws Exception {
         System.out.println("test start :)");
         account = new Account();
-        account.setName("test");
+        account.setLogin("test");
         account.setPassword("test");
         accountDao.save(account);
     }
@@ -42,7 +42,7 @@ public class AccountDaoImplTest {
     @Test
     @Transactional
     public void getByName() throws Exception {
-        Account test = accountDao.getByName(account.getName());
+        Account test = accountDao.getByLogin(account.getLogin());
         assertEquals(account.getId(), test.getId());
     }
 
@@ -65,10 +65,10 @@ public class AccountDaoImplTest {
     @Transactional
     public void update() throws Exception {
         String newName = "new";
-        account.setName(newName);
+        account.setLogin(newName);
         accountDao.update(account);
         accountDao.getById(account.getId());
-        assertEquals(newName, account.getName());
+        assertEquals(newName, account.getLogin());
 
     }
 

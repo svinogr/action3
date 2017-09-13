@@ -7,9 +7,13 @@
 
   <display-name>ap</display-name>
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+      <welcome-file>/view/index.jsp</welcome-file>
 
   </welcome-file-list>
+    <!--  <error-page>
+        <error-code>404</error-code>
+        <location>view/index.jsp</location>
+      </error-page>-->
 
   <context-param>
     <param-name>contextClass</param-name>

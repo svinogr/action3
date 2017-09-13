@@ -127,7 +127,7 @@ public class ArtistSearchServiceImplTest {
     @Transactional
     public void searchByPropertyTwo() {
         artistProfile = new ArtistProfile();
-        //artistProfile.setName("test3");
+        //artistProfile.setLogin("test3");
         artistProfile.setAge(100);
         List<ArtistProfile> search = artistSearchService.search(artistProfile, null, 0);
         for (ArtistProfile a : search

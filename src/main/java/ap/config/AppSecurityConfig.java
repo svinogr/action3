@@ -49,12 +49,13 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/company/**").access("hasRole('COMPANY')")
+                .antMatchers("/artist/**").access("hasRole('ARTIST')")
                 .antMatchers("/confidential/**").access("hasRole('USER')")
 
                 .and().httpBasic().
-                and().formLogin().loginPage("/test").defaultSuccessUrl("/", false)
+              /*  and().formLogin().loginPage("/test").defaultSuccessUrl("/", false)*/
 
-                .and().csrf().disable()
+                      and().csrf().disable()
 
 
                 // .rememberMe().rememberMeServices(rememberMeServices()).key("posc")
@@ -66,7 +67,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/test")
+                .logoutSuccessUrl("/")
                 .invalidateHttpSession(true).deleteCookies();
     }
 

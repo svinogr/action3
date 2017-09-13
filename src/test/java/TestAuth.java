@@ -41,12 +41,12 @@ public class TestAuth {
     public void setUp() throws Exception {
         System.out.println("start test");
         account = new Account();
-        account.setName(name);
+        account.setLogin(name);
         account.setPassword("test");
         accountService.create(account);
         Role role = Role.ADMIN;
         roles = new Roles();
-        roles.setLoginAccount(account.getName());
+        roles.setLoginAccount(account.getLogin());
         roles.setRoleName(role.name());
         rolesDao.save(roles);
     }
