@@ -7,6 +7,7 @@ import ap.entity.Role;
 import ap.entity.Roles;
 import ap.service.AccountService;
 import ap.service.ArtistService;
+import ap.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -33,6 +35,9 @@ public class AccountController {
 
     @Autowired
     RolesDao rolesDao;
+
+    @Autowired
+    MailService mailService;
 
     @RequestMapping(value = "/artist", method = RequestMethod.POST)
     public Account createAccount(@RequestBody @Valid Account account, BindingResult bindingResult, HttpServletResponse response) {
@@ -63,6 +68,12 @@ public class AccountController {
             account.setLogin("Пользователь слогином уже существует");
             return account;
         }
+
+        MimeMessage message = mailService.createMessage(account.getMail(),
+                "mail.body.registration" + account.getToken().getToken(),
+                "mail.subject.registration");
+        mailService.sendMessage(message);
+
 
         response.setStatus(201);
         response.setHeader("Location", "/api/account/" + account.getId());

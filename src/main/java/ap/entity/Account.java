@@ -36,6 +36,9 @@ public class Account {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.ALL)
     private Roles roles;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.ALL)
+    private Token token;
+
     public Account() {
     }
 
@@ -49,6 +52,14 @@ public class Account {
 
     public String getLogin() {
         return login;
+    }
+
+    public Token getToken() {
+        return token;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
     }
 
     public void setLogin(String login) {

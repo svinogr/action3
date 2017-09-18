@@ -21,6 +21,7 @@ public class AccountDaoImpl extends BasicDaoImpl<Account> implements AccountDao 
         super(Account.class);
     }
 
+    @Override
     @Transactional
     public Account getByLogin(String login) {
         Account account = null;

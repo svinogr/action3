@@ -3,9 +3,11 @@ package ap.config;
 import ap.dao.ArtistProfileDao;
 import ap.dao.BasicDao;
 import ap.dao.RolesDao;
+import ap.dao.TokenDao;
 import ap.dao.daoImpl.ArtistProfileDaoImpl;
 import ap.dao.daoImpl.BasicDaoImpl;
 import ap.dao.daoImpl.RolesDaoImpl;
+import ap.dao.daoImpl.TokenDaoImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,6 +27,11 @@ public class DaoConfig {
     @Bean
     ArtistProfileDao artistProfileDao() {
         return new ArtistProfileDaoImpl();
+    }
+
+    @Bean
+    TokenDao tokenDao() {
+        return new TokenDaoImpl();
     }
 
 }

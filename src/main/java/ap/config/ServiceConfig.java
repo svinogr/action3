@@ -4,9 +4,11 @@ import ap.dao.ArtistProfileDao;
 import ap.service.AccountService;
 import ap.service.ArtistSearchService;
 import ap.service.ArtistService;
+import ap.service.TokenService;
 import ap.service.serviceImpl.AccountServiceImpl;
 import ap.service.serviceImpl.ArtistSearchServiceImpl;
 import ap.service.serviceImpl.ArtistServiceImpl;
+import ap.service.serviceImpl.TokenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +32,11 @@ public class ServiceConfig {
     @Bean
     ArtistSearchService artistSearchService() {
         return new ArtistSearchServiceImpl();
+    }
+
+    @Bean
+    TokenService tokenService() {
+        return new TokenServiceImpl();
     }
 
 

@@ -31,6 +31,7 @@ public class AccountDaoImplTest {
         account = new Account();
         account.setLogin("test");
         account.setPassword("test");
+        account.setMail("test@mail.ru");
         accountDao.save(account);
     }
 

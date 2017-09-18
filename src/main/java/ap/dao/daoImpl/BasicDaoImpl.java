@@ -56,4 +56,10 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
         currentSession.delete(object);
         return true;
     }
+
+    @Override
+    @Transactional
+    public T getByLogin(String login) {
+        return null;
+    }
 }

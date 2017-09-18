@@ -10,4 +10,6 @@ public interface BasicDao<T> {
     T update(T object) throws HibernateException;
 
     boolean delete(T object) throws HibernateException;
+
+    T getByLogin(String login);
 }
