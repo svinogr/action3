@@ -9,6 +9,7 @@ import ap.service.AccountService;
 import ap.service.ArtistService;
 import ap.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -39,6 +40,9 @@ public class AccountController {
     @Autowired
     MailService mailService;
 
+    @Autowired
+    Environment environment;
+
     @RequestMapping(value = "/artist", method = RequestMethod.POST)
     public Account createAccount(@RequestBody @Valid Account account, BindingResult bindingResult, HttpServletResponse response) {
         System.out.println("AccountController");
@@ -59,6 +63,7 @@ public class AccountController {
         roles.setRoleName(Role.ARTIST.name());
         roles.setLoginAccount(account.getLogin());
         roles.setAccount(account);
+
         account.setRoles(roles);
         account = accountService.create(account);
 
@@ -69,9 +74,10 @@ public class AccountController {
             return account;
         }
 
+        //TODO отправку сделать в отдельном потоке
         MimeMessage message = mailService.createMessage(account.getMail(),
-                "mail.body.registration" + account.getToken().getToken(),
-                "mail.subject.registration");
+                environment.getRequiredProperty("mail.body.registration") + account.getToken().getToken(),
+                environment.getRequiredProperty("mail.subject.registration"));
         mailService.sendMessage(message);
 
 
@@ -79,6 +85,7 @@ public class AccountController {
         response.setHeader("Location", "/api/account/" + account.getId());
         account.setPassword(null);
         account.setRoles(null);
+        account.setToken(null);
         return account;
     }
 

@@ -15,9 +15,12 @@ import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,9 +44,11 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     MailService mailService;
 
-
     @Autowired
     RolesDao rolesDao;
+
+    @Autowired
+    UserDetailsService userDetailsService;
 
     public Account getById(int id) {
         return accountDao.getById(id);
@@ -55,11 +60,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     public Account create(Account account) {
-        //TODO отпрвка активации на емейл
-
         account.setPassword(new BCryptPasswordEncoder().encode(account.getPassword()));
-        if (checkAccount(account.getLogin())) return null;
 
+        if (checkAccount(account.getLogin())) return null;
 
         Token token = new Token();
         token.setLogin(account.getLogin());
@@ -97,6 +100,28 @@ public class AccountServiceImpl implements AccountService {
         return principal;
     }
 
+    @Override
+    public boolean acceptRegistration(String tokenString) {
+        Token tokenByTokenString = tokenService.getTokenByTokenString(tokenString);
+        if (tokenByTokenString != null) {
+            Account byLogin = accountDao.getByLogin(tokenByTokenString.getLogin());
+            byLogin.setActive(true);
+            accountDao.update(byLogin);
+            login(byLogin.getLogin());
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void login(String login) {
+        if (login != null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(login);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+    }
+
     public Role getRole() {
         UserDetails principal = getPrincipal();
         Role[] values = Role.values();
@@ -113,6 +138,8 @@ public class AccountServiceImpl implements AccountService {
         }
         return null;
     }
+
+
 }
 
 

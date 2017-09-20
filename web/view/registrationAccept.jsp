@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"
+         isELIgnored="false"
+%>
 <!DOCTYPE html>
 <html ng-app="Action">
 <head>
@@ -21,19 +25,25 @@
     <script src="/js/app.js"></script>
     <script src="/js/spin.js"></script>
 
-
-    <!-- <base href="http://109.167.132.145/">-->
+    <script>
+        function redirect() {
+            window.location.href = "http://localhost:8080";
+        }
+    </script>
 </head>
-<body ng-cloak ng-controller="UrlCtrl">
-<a href="http://localhost:8080/logout">out</a>
+<body>
+<div class="container">
+    <div class=" bs-calltoaction bs-calltoaction-primary">
+        <div class="row">
 
-Hello
-<div>{{1+2}}</div>
-
-<ng-include ng-cloak src="url.header"></ng-include>
-<div ng-cloak ng-view></div>
-<ng-include ng-cloak src="url.footer"></ng-include>
-
+            <span class="alert">Регистрация завершена. Перейдите на сайт</span> <br/>
+            <p class="submit cta-button">
+                <button class="btn btn-lg btn-primary btn-block" onclick="redirect()"> Перейти на
+                    сайт
+                </button>
+            </p>
+        </div>
+    </div>
+</div>
 </body>
-
 </html>

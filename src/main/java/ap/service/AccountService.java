@@ -2,6 +2,7 @@ package ap.service;
 
 import ap.entity.Account;
 import ap.entity.Role;
+import ap.entity.Token;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public interface AccountService {
@@ -18,4 +19,9 @@ public interface AccountService {
     Role getRole();
 
     UserDetails getPrincipal();
+
+    boolean acceptRegistration(String tokenString);
+
+    void login(String login);
+
 }

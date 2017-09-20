@@ -27,4 +27,20 @@ public class TokenDaoImpl extends BasicDaoImpl<Token> implements TokenDao {
         return token;
 
     }
+
+    @Override
+    public Token getTokenByToken(String tokenString) {
+        Token token = null;
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            Criteria criteria = session.createCriteria(Token.class);
+            criteria.add(Restrictions.eq("token", tokenString));
+            token = (Token) criteria.uniqueResult();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return token;
+
+    }
+
 }
